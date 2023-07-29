@@ -1,4 +1,4 @@
-import { Hmac, createDecipheriv, createHmac, timingSafeEqual } from "crypto"
+import { Hmac, createCipheriv, createDecipheriv, createHmac, randomBytes, timingSafeEqual } from "crypto"
 
 export default class {
   protected readonly key: Buffer
@@ -22,6 +22,30 @@ export default class {
     const decrypted = decipher.update(data.value, 'base64')
 
     return Buffer.concat([decrypted, decipher.final()]).toString()
+  }
+
+  /**
+   * Method to enctypt a string
+   *
+   * @param value The value to encrypt
+   * @param key The key to be used to encrypt the string, if not provided the default key is used
+   * @returns The string encrypted
+   */
+  public encrypt (value: string, key: Buffer = this.key): string {
+    this.checkKey(key)
+    const iv = randomBytes(16)
+    const ivBased = iv.toString('base64')
+    const cipher = createCipheriv('AES-256-CBC', Buffer.from(key), iv)
+    const encrypted = cipher.update(value)
+    const value64 = Buffer.concat([encrypted, cipher.final()]).toString('base64')
+
+    return Buffer.from(
+      JSON.stringify({
+        iv: ivBased,
+        value: value64,
+        mac: this.hash(ivBased, value64, key).digest('hex')
+      })
+    ).toString('base64')
   }
 
   /**

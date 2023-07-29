@@ -16,4 +16,12 @@ describe('Crypter', () => {
       expect('test-string').equal(crypter.decrypt('eyJpdiI6IlRWaDZIZCtiNHJQMFJTNnhtOEJ4dkE9PSIsInZhbHVlIjoiYVlGL0RFWHhBR0N5Z011RjU0T2gwQT09IiwibWFjIjoiYzM1NWY0MjE2NDc0ZWM4ZjExNDRmYzRiYWFhOWZkYmJhY2VkNDEyZWY5NTc0Yjg0N2VjNTZhNTlmNGMwZTZhNiIsInRhZyI6IiJ9='))
     })
   })
+  describe('Encrypt', () => {
+    const crypter = new Crypter(read('1OvhreDcn1XxUcu8Pj1OgY7IIAD9cQzKB2vdu2YRLrw='))
+    const original = 'test-string';
+    const encrypted = crypter.encrypt(original)
+    const decrypted = crypter.decrypt(encrypted)
+
+    expect(decrypted).equal(original)
+  })
 })
