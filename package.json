@@ -1,7 +1,6 @@
 {
-  "name": "crypter",
+  "name": "@izzius94/crypter",
   "version": "1.0.0",
-  "description": "An imple",
   "main": "dist/index.js",
   "scripts": {
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --exit -r ts-node/register 'test/**/*.ts'",
@@ -9,18 +8,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/izzius94/ts-framework-crypter.git"
+    "url": "git+https://github.com/izzius94/crypter.git"
   },
   "keywords": [
     "laravel",
     "crypter"
   ],
   "author": "Maurizio Urso",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/izzius94/ts-framework-crypter/issues"
+    "url": "https://github.com/izzius94/crypter/issues"
   },
-  "homepage": "https://gitlab.com/izzius94/ts-framework-crypter#readme",
+  "homepage": "https://github.com/izzius94/crypter#readme",
   "devDependencies": {
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
