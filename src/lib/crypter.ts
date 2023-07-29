@@ -1,4 +1,4 @@
-import { Hmac, createCipheriv, createDecipheriv, createHmac, randomBytes, timingSafeEqual } from "crypto"
+import { Hmac, createCipheriv, createDecipheriv, createHmac, randomBytes, timingSafeEqual } from 'crypto'
 
 export default class {
   protected readonly key: Buffer

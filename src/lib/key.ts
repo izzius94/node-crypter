@@ -1,4 +1,4 @@
-import { randomBytes } from "crypto"
+import { randomBytes } from 'crypto'
 
 /**
  * Generate a new encryption key, by default it is served as a
@@ -6,9 +6,9 @@ import { randomBytes } from "crypto"
  *
  * @returns The encryption key
  */
-export const generate = (stringfy: boolean = true): Buffer|string => {
+export const generate = (stringfy: boolean = true): Buffer | string => {
   const key = Buffer.from(randomBytes(32))
-  
+
   return stringfy ? key.toString('base64') : key
 }
 
