@@ -1,0 +1,26 @@
+{
+  "name": "crypter",
+  "version": "1.0.0",
+  "description": "An imple",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/izzius94/ts-framework-crypter.git"
+  },
+  "keywords": [
+    "laravel",
+    "crypter"
+  ],
+  "author": "Maurizio Urso",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/izzius94/ts-framework-crypter/issues"
+  },
+  "homepage": "https://gitlab.com/izzius94/ts-framework-crypter#readme",
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
