@@ -1,4 +1,4 @@
-import { Hmac, createCipheriv, createDecipheriv, createHmac, randomBytes, timingSafeEqual } from "crypto"
+import { Hmac, createCipheriv, createDecipheriv, createHmac, randomBytes, timingSafeEqual } from 'crypto'
 
 export default class {
   protected readonly key: Buffer
@@ -70,11 +70,11 @@ export default class {
     const data: IPayload = JSON.parse(Buffer.from(encrypted, 'base64').toString('utf8'))
 
     if (!this.validJson(data)) {
-      throw new Error('Invalid payload')
+      throw new Error('Invalid payload.')
     }
 
     if (!this.validMac(data, key)) {
-      throw new Error('Invalid MAC')
+      throw new Error('Invalid MAC.')
     }
 
     return data
