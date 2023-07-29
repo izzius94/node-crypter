@@ -1,6 +1,6 @@
 [![npm](https://badgen.net/npm/v/@izzius94/crypter)](https://www.npmjs.com/package/@izzius94/crypter)
 [![npm](https://badgen.net/npm/dt/@izzius94/crypter)](https://www.npmjs.com/package/@izzius94/crypter)
-[![License](https://badgen.net/github/license/izzius94/crypter)](https://github.com/izzius94/crypter/blob/main/LICENSE)
+[![License](https://badgen.net/github/license/izzius94/crypter)](https://github.com/izzius94/node-crypter/blob/main/LICENSE)
 [![TS-Standard - TypeScript Standard Style Guide](https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript)](https://github.com/standard/ts-standard)
 
 # @izzius94/crypter
