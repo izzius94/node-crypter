@@ -17,11 +17,13 @@ describe('Crypter', () => {
     })
   })
   describe('Encrypt', () => {
-    const crypter = new Crypter(read('1OvhreDcn1XxUcu8Pj1OgY7IIAD9cQzKB2vdu2YRLrw='))
-    const original = 'test-string';
-    const encrypted = crypter.encrypt(original)
-    const decrypted = crypter.decrypt(encrypted)
-
-    expect(decrypted).equal(original)
+    it('Should encrypt a string correctly', () => {
+      const crypter = new Crypter(read('1OvhreDcn1XxUcu8Pj1OgY7IIAD9cQzKB2vdu2YRLrw='))
+      const original = 'test-string';
+      const encrypted = crypter.encrypt(original)
+      const decrypted = crypter.decrypt(encrypted)
+  
+      expect(decrypted).equal(original)
+    })
   })
 })
