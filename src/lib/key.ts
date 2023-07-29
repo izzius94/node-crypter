@@ -1,9 +1,10 @@
 import { randomBytes } from "crypto"
 
 /**
- * Generate a new encryption key
+ * Generate a new encryption key, by default it is served as a
+ * string encoded in base64
  *
- * @returns The buffer rappresenti the key
+ * @returns The encryption key
  */
 export const generate = (stringfy: boolean = true): Buffer|string => {
   const key = Buffer.from(randomBytes(32))
@@ -12,10 +13,10 @@ export const generate = (stringfy: boolean = true): Buffer|string => {
 }
 
 /**
- * Read an encryption key from a base64 string
+ * Read an encryption key from a base64 encoded string
  *
  * @param based The based encryption key
- * @returns 
+ * @returns The buffer rappresenting the key
  */
 export const read = (based: string): Buffer => {
   return Buffer.from(based, 'base64')
