@@ -10,3 +10,13 @@ export const generate = (stringfy: boolean = true): Buffer|string => {
   
   return stringfy ? key.toString('base64') : key
 }
+
+/**
+ * Read an encryption key from a base64 string
+ *
+ * @param based The based encryption key
+ * @returns 
+ */
+export const read = (based: string): Buffer => {
+  return Buffer.from(based, 'base64')
+}
