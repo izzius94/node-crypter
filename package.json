@@ -1,11 +1,12 @@
 {
   "name": "@izzius94/crypter",
-  "version": "1.0.0",
+  "description": "The crypter library makes easy to share encrypted data with a Laravel project.",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "bin": "dist/cli.js",
   "scripts": {
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --exit -r ts-node/register 'test/**/*.ts'",
-    "coverage": "nyc --reporter=html --report-dir=coverage npm run test"
+    "coverage": "nyc --reporter=cobertura --all=true --include=src/** --exclude=src/cli.ts --report-dir=coverage npm run test"
   },
   "repository": {
     "type": "git",
