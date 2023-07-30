@@ -1,19 +1,17 @@
 import Crypter from '../../src/lib/crypter'
 import { randomBytes } from 'crypto'
 import { expect } from 'chai'
-import { read } from '../../src/lib/key'
 import { key, encrypted, encryptedInvalidPayload, anotherKey } from '../config'
-
 
 const crypter = new Crypter(key)
 
 describe('Crypter', () => {
-  describe('Initialization', () => {
+  describe('# Initialization', () => {
     it('Should rise an exception if an invalid encryption key is provided', () => {
       expect(() => new Crypter(Buffer.from(randomBytes(1)))).Throw('Invalid key lenght.')
     })
   })
-  describe('Decrypt', () => {
+  describe('# Decrypt', () => {
     it('Should decrypt a string', () => {
       expect('test-string').equal(crypter.decrypt(encrypted))
     })
@@ -28,7 +26,7 @@ describe('Crypter', () => {
       expect(() => crypter.decrypt(encrypted)).Throw('Invalid MAC.')
     })
   })
-  describe('Encrypt', () => {
+  describe('# Encrypt', () => {
     it('Should encrypt a string correctly', () => {
       const original = 'test-string'
       const encrypted = crypter.encrypt(original)
