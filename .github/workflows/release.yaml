@@ -16,6 +16,7 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@izzius94'
+      - run: npm ci
       - run: npx tsc
       - name: publish
         if: github.event.base_ref=='refs/heads/master'
