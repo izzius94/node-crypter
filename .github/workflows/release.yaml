@@ -1,0 +1,24 @@
+name: release
+on:
+  release:
+    types:
+      - released
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          scope: '@izzius94'
+      - run: npm ci
+      - run: npx tsc
+      - name: publish
+        if: github.event.base_ref=='refs/heads/master'
+        run: |
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

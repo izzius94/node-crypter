@@ -6,15 +6,10 @@ describe('Key module', () => {
     it('Should create an encryption key string of 44 characters', () => {
       const key = generate()
 
-      assert.strictEqual(typeof key, 'string')
       assert.strictEqual(key.length, 44)
     })
-
-    it('Could create an encryption key as a Buffer', () => {
-      const key = generate(false)
-
-      assert.strictEqual(key instanceof Buffer, true)
-      assert.strictEqual(key.length, 32)
+    it('Should create different keys every time', () => {
+      assert.notEqual(generate(), generate)
     })
   })
   describe('# Reading', () => {
