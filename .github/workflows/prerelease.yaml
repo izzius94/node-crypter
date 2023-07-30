@@ -1,4 +1,4 @@
-name: prereleased
+name: prerelease
 on:
   release:
     types:

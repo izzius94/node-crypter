@@ -1,7 +1,7 @@
 import { Hmac, createCipheriv, createDecipheriv, createHmac, randomBytes, timingSafeEqual } from 'crypto'
 
 /**
- * Method to decrypt an encrypted string
+ * Decrypt an encrypted string
  *
  * @param encrypted The string to decrypt
  * @param key The key to be used to encrypt the string, if not provided the default key is used
@@ -16,7 +16,7 @@ export const decrypt = (encrypted: string, key: Buffer): string => {
 }
 
 /**
- * Method to enctypt a string
+ * Enctypt a string
  *
  * @param value The value to encrypt
  * @param key The key to be used to encrypt the string, if not provided the default key is used

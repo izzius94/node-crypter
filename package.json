@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/izzius94/crypter.git"
+    "url": "git+https://github.com/izzius94/node-crypter.git"
   },
   "keywords": [
     "laravel",
@@ -19,9 +19,9 @@
   "author": "Maurizio Urso",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/izzius94/crypter/issues"
+    "url": "https://github.com/izzius94/node-crypter/issues"
   },
-  "homepage": "https://github.com/izzius94/crypter#readme",
+  "homepage": "https://github.com/izzius94/node-crypter#readme",
   "devDependencies": {
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
