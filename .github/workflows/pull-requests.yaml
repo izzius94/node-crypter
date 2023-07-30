@@ -6,14 +6,13 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
       - run: npm ci
       - run: npx ts-standard
       - run: npm run coverage
-      - name: Test
-        run: |
-          npm run test
       - name: Code Coverage Summary
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
