@@ -1,11 +1,10 @@
-[![npm](https://badgen.net/npm/v/@izzius94/crypter)](https://www.npmjs.com/package/@izzius94/crypter)
-[![npm](https://badgen.net/npm/dt/@izzius94/crypter)](https://www.npmjs.com/package/@izzius94/crypter)
-[![License](https://badgen.net/github/license/izzius94/crypter)](https://github.com/izzius94/node-crypter/blob/main/LICENSE)
+[![npm](https://badgen.net/npm/v/@izzius94/node-crypter)](https://www.npmjs.com/package/@izzius94/node-crypter)
+[![License](https://badgen.net/github/license/izzius94/node-crypter)](https://github.com/izzius94/node-crypter/blob/main/LICENSE)
 [![TS-Standard - TypeScript Standard Style Guide](https://badgen.net/badge/code%20style/ts-standard/blue?icon=typescript)](https://github.com/standard/ts-standard)
 
-# @izzius94/crypter
+# @izzius94/node-crypter
 
-The `crypter` library makes easy to share encrypted data with a Laravel project.
+The `node-crypter` library makes easy to share encrypted data with a Laravel project.
 
 ## Features
 
@@ -22,7 +21,7 @@ Currently serialization and deserialization is not supported.
 ### Creation of encryption key
 
 ```typescript
-import { generateKey } from '@izzius94/crypter'
+import { generateKey } from '@izzius94/node-crypter'
 
 // Will output a string similar to TkIRuk6C70E2ExHunuX+wg3CwX+kcgkbg59Yhwiqi7s=
 console.log(generateKey())
@@ -32,7 +31,7 @@ console.log(generateKey())
 ### Using the Crypter to encrypt and decrypt a string
 
 ```typescript
-import { Crypter, readKey } from '@izzius94/crypter'
+import { Crypter, readKey } from '@izzius94/node-crypter'
 
 const crypter = new Crypter(readKey('TkIRuk6C70E2ExHunuX+wg3CwX+kcgkbg59Yhwiqi7s='))
 const original = 'my-string'
@@ -49,7 +48,7 @@ console.log(original === decrypted)
 Sometimes you will need to encrypt/decrypt strings using a different key, to do this simply pass the wanted key as the second parameter to `encrypt` and `decrypt` methods.
 
 ```typescript
-import { Crypter, readKey } from '@izzius94/crypter'
+import { Crypter, readKey } from '@izzius94/node-crypter'
 
 const crypter = new Crypter(readKey('TkIRuk6C70E2ExHunuX+wg3CwX+kcgkbg59Yhwiqi7s='))
 const key = readKey('8U6GU1Tp1/0Jb7/1BRCxpzQubzBKfs1Sm8V8Wtce4+U==')
