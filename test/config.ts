@@ -1,0 +1,6 @@
+import { read } from '../src/lib/key'
+
+export const key = read('1OvhreDcn1XxUcu8Pj1OgY7IIAD9cQzKB2vdu2YRLrw=')
+export const anotherKey = read('8U6GU1Tp1/0Jb7/1BRCxpzQubzBKfs1Sm8V8Wtce4+U==')
+export const encrypted = 'eyJpdiI6IlRWaDZIZCtiNHJQMFJTNnhtOEJ4dkE9PSIsInZhbHVlIjoiYVlGL0RFWHhBR0N5Z011RjU0T2gwQT09IiwibWFjIjoiYzM1NWY0MjE2NDc0ZWM4ZjExNDRmYzRiYWFhOWZkYmJhY2VkNDEyZWY5NTc0Yjg0N2VjNTZhNTlmNGMwZTZhNiIsInRhZyI6IiJ9'
+export const encryptedInvalidPayload = 'eyJpdiI6IiIsInZhbHVlIjoiQm1DZDMrQWdxNEtrZ2Zta3I3WGFxUT09IiwibWFjIjoiOTFkOTMyZWEzZGM3NWFmZTI1NWI2OTE0YzVmN2RkMjk4NjI3MTY1OGQ5NTJhODc5ODgyNGZiODA2MDZlM2JiNCJ9'
