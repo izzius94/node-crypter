@@ -1,12 +1,13 @@
 name: release
 on:
-  push:
+  release:
+    types:
+      - released
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
