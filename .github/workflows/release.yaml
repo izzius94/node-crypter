@@ -14,10 +14,9 @@ jobs:
         with:
           node-version: '16.x'
           scope: '@izzius94'
+          registry-url: https://registry.npmjs.org
       - run: npm ci
       - run: npx tsc
-      - name: publish
-        run: |
-          npm publish
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
