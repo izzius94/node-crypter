@@ -19,6 +19,7 @@ jobs:
       - run: npm ci
       - run: npx tsc
       - name: publish
+        if: github.event.base_ref=='refs/heads/master'
         run: |
           npm publish
         env:
