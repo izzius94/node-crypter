@@ -19,7 +19,7 @@ export const read = (based: string): Buffer => {
   return Buffer.from(based, 'base64')
 }
 
-const config = {
+export const config = {
   'aes-128-cbc': 16,
   'aes-256-cbc': 32
 }

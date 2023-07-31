@@ -1,9 +1,8 @@
 import { expect } from 'chai'
 import { decrypt, encrypt } from '../../src/lib/crypt'
-import { key, encrypted, encryptedInvalidPayload, anotherKey } from '../config'
+import { encryptedInvalidPayload, anotherKey } from '../config'
 import forEach from 'mocha-each'
 import { algo, read } from '../../src/lib/key'
-
 
 describe('crypt', () => {
   forEach([
@@ -27,7 +26,7 @@ describe('crypt', () => {
         const original = 'test-string'
         const encrypted = encrypt(original, read(key), algo)
         const decrypted = decrypt(encrypted, read(key), algo)
-  
+
         expect(decrypted).equal(original)
       })
     })
