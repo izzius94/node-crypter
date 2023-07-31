@@ -1,22 +1,17 @@
 import assert from 'assert'
-import { generate, read } from '../../src/lib/key'
+import { generate, read, algo } from '../../src/lib/key'
+import forEach from 'mocha-each'
 
 describe('Key module', () => {
-  describe('# Generation', () => {
-    it('Should create an encryption key string of 44 characters', () => {
-      const key = generate()
-
-      assert.strictEqual(key.length, 44)
+  forEach([
+    ['aes-256-cbc', 44, 32, '1OvhreDcn1XxUcu8Pj1OgY7IIAD9cQzKB2vdu2YRLrw='],
+    ['aes-128-cbc', 24, 16, 'OT8by/782/nqNUwrm4TbLg==']
+  ]).describe('# Algo %s', (algo: algo, size: number, length: number, key: string) => {
+    it(`Should create an encryption key string of ${size} characters`, () => {
+      assert.strictEqual(generate(algo).length, size)
     })
-    it('Should create different keys every time', () => {
-      assert.notEqual(generate(), generate)
-    })
-  })
-  describe('# Reading', () => {
     it('Could read an encryption key created by a laravel project', () => {
-      const key = read('1OvhreDcn1XxUcu8Pj1OgY7IIAD9cQzKB2vdu2YRLrw=')
-
-      assert.strictEqual(key.length, 32)
+      assert.strictEqual(read(key).length, length)
     })
   })
 })

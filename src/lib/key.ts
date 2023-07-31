@@ -5,8 +5,8 @@ import { randomBytes } from 'crypto'
  *
  * @returns The encryption key
  */
-export const generate = (): string => {
-  return Buffer.from(randomBytes(32)).toString('base64')
+export const generate = (algo: algo = 'aes-256-cbc'): string => {
+  return Buffer.from(randomBytes(config[algo])).toString('base64')
 }
 
 /**
@@ -18,3 +18,10 @@ export const generate = (): string => {
 export const read = (based: string): Buffer => {
   return Buffer.from(based, 'base64')
 }
+
+export const config = {
+  'aes-128-cbc': 16,
+  'aes-256-cbc': 32
+}
+
+export type algo = 'aes-128-cbc' | 'aes-256-cbc'

@@ -1,4 +1,5 @@
 import { Hmac, createCipheriv, createDecipheriv, createHmac, randomBytes, timingSafeEqual } from 'crypto'
+import { algo } from './key'
 
 /**
  * Decrypt an encrypted string
@@ -7,9 +8,9 @@ import { Hmac, createCipheriv, createDecipheriv, createHmac, randomBytes, timing
  * @param key The key to be used to encrypt the string, if not provided the default key is used
  * @returns The string decrypted
  */
-export const decrypt = (encrypted: string, key: Buffer): string => {
+export const decrypt = (encrypted: string, key: Buffer, algo: algo = 'aes-256-cbc'): string => {
   const data = getJsonPayload(encrypted, key)
-  const decipher = createDecipheriv('AES-256-CBC', Buffer.from(key), Buffer.from(data.iv, 'base64'))
+  const decipher = createDecipheriv(algo, Buffer.from(key), Buffer.from(data.iv, 'base64'))
   const decrypted = decipher.update(data.value, 'base64')
 
   return Buffer.concat([decrypted, decipher.final()]).toString()
@@ -22,10 +23,10 @@ export const decrypt = (encrypted: string, key: Buffer): string => {
  * @param key The key to be used to encrypt the string, if not provided the default key is used
  * @returns The string encrypted
  */
-export const encrypt = (value: string, key: Buffer): string => {
+export const encrypt = (value: string, key: Buffer, algo: algo = 'aes-256-cbc'): string => {
   const iv = randomBytes(16)
   const ivBased = iv.toString('base64')
-  const cipher = createCipheriv('AES-256-CBC', Buffer.from(key), iv)
+  const cipher = createCipheriv(algo, Buffer.from(key), iv)
   const encrypted = cipher.update(value)
   const value64 = Buffer.concat([encrypted, cipher.final()]).toString('base64')
 
