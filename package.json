@@ -1,7 +1,7 @@
 {
   "name": "@izzius94/crypter",
   "description": "The crypter library makes easy to share encrypted data with a Laravel project.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "bin": "dist/cli.js",
   "scripts": {
