@@ -10,6 +10,13 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v3
+      - name: Checking if version already exists
+        run: |
+          VERSIONS=$(npm view @izzius94/crypter versions --json)
+          CURRENT_VERSION=$(node -pe "require('./package.json').version")
+          if [[ " ${VERSIONS[@]} " =~ $CURRENT_VERSION ]]; then
+            exit 1
+          fi
       - run: npm ci
       - run: npx ts-standard
       - run: npm run coverage
