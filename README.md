@@ -9,10 +9,16 @@ The `crypter` library makes easy to share encrypted data with a Laravel project.
 
 ## Features
 
-- Genaration of encryption keys
+- Genaration of encryption keys from command line
 - Encryption of strings
 - Decryption of strings
 
+### Supported algorithms
+
+- aes-256-cbc
+- aes-128-cbc
+
+### Missing features
 Currently serialization and deserialization is not supported.
 
 > To mitigate this use [php-serialize](https://www.npmjs.com/package/php-serialize) library.
@@ -26,7 +32,7 @@ npx @izzius94/crypter
 
 ```
 
-This command will output a new encryption key in yor console.
+This command will output a new encryption key in yor console. This command accept the algorithm to use as a parameter. If the algorithm is not supported it will exit with an error
 
 ### Encrypt/decrypt strings
 

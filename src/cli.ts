@@ -3,7 +3,7 @@
 import { generateKey } from './index'
 import { algo } from './lib/key'
 
-const setAlgo = (algo: string|undefined): algo => {
+const setAlgo = (algo: string | undefined): algo => {
   if (algo === undefined) {
     return 'aes-256-cbc'
   }
@@ -12,7 +12,7 @@ const setAlgo = (algo: string|undefined): algo => {
     return algo
   }
 
-  console.error('Invalid algo')
+  console.error(`Invalid algorithm: ${algo}`)
   process.exit(1)
 }
 

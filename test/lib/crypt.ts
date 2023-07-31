@@ -17,7 +17,6 @@ describe('crypt', () => {
         expect(() => decrypt(encrypted, anotherKey), algo).Throw('Invalid MAC.')
       })
       it('Should decrypt a string', () => {
-        console.log(key, algo)
         expect('test-string').equal(decrypt(encrypted, read(key), algo))
       })
     })
