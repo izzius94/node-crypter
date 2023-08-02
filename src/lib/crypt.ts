@@ -9,12 +9,12 @@ import { algo } from './key'
  * @returns The string decrypted
  */
 export const decrypt = (encrypted: string, key: Buffer, algo: algo = 'aes-256-cbc'): string => {
-  const data = getJsonPayload(encrypted, key, algo)
+  const payload = getJsonPayload(encrypted, key, algo)
 
-  ensureTagIsValid(data.tag === undefined || data.tag === '' ? null : data.tag, algo)
+  ensureTagIsValid(payload.tag === undefined || payload.tag === '' ? null : payload.tag, algo)
 
-  const decipher = createDecipher(algo, key, data)
-  const decrypted = decipher.update(data.value, 'base64')
+  const decipher = createDecipher(algo, key, payload)
+  const decrypted = decipher.update(payload.value, 'base64')
 
   return Buffer.concat([decrypted, decipher.final()]).toString()
 }
@@ -30,7 +30,7 @@ export const encrypt = (value: string, key: Buffer, algo: algo = 'aes-256-cbc'):
   if (algo === 'aes-256-gcm' || algo === 'aes-128-gcm') {
     const iv = randomBytes(12)
     const ivBased = iv.toString('base64')
-    const cipher = createCipheriv(algo, Buffer.from(key), iv, { authTagLength: 16 })
+    const cipher = createCipheriv(algo, key, iv, { authTagLength: 16 })
     const encrypted = cipher.update(value)
     const value64 = Buffer.concat([encrypted, cipher.final()]).toString('base64')
 
@@ -46,7 +46,7 @@ export const encrypt = (value: string, key: Buffer, algo: algo = 'aes-256-cbc'):
 
   const iv = randomBytes(16)
   const ivBased = iv.toString('base64')
-  const cipher = createCipheriv(algo, Buffer.from(key), iv)
+  const cipher = createCipheriv(algo, key, iv)
   const encrypted = cipher.update(value)
   const value64 = Buffer.concat([encrypted, cipher.final()]).toString('base64')
 
@@ -68,17 +68,17 @@ export const encrypt = (value: string, key: Buffer, algo: algo = 'aes-256-cbc'):
  * @returns The converted payload
  */
 const getJsonPayload = (encrypted: string, key: Buffer, algo: algo): IPayload => {
-  const data: IPayload = JSON.parse(Buffer.from(encrypted, 'base64').toString('utf8'))
+  const payload: IPayload = JSON.parse(Buffer.from(encrypted, 'base64').toString('utf8'))
 
-  if (!validJson(data, algo)) {
+  if (!validJson(payload, algo)) {
     throw new Error('Invalid payload.')
   }
 
-  if (algo !== 'aes-256-gcm' && algo !== 'aes-128-gcm' && !validMac(data, key)) {
+  if (algo !== 'aes-256-gcm' && algo !== 'aes-128-gcm' && !validMac(payload, key)) {
     throw new Error('Invalid MAC.')
   }
 
-  return data
+  return payload
 }
 
 /**
@@ -133,25 +133,25 @@ const hash = (iv: string, value: string, key: Buffer): Hmac => {
 /**
  * Create the decipher for decryption
  *
- * @param algo The algorithm used
- * @param key The key used
- * @param data The data in the payload
+ * @param algo The algorithm to use to decrypt the value in the payload
+ * @param key The key to use to decrypt the value in the payload
+ * @param payload The payload
  * @returns
  */
-const createDecipher = (algo: algo, key: Buffer, data: IPayload): Decipher => {
+const createDecipher = (algo: algo, key: Buffer, payload: IPayload): Decipher => {
   if (algo === 'aes-256-gcm' || algo === 'aes-128-gcm') {
-    return createDecipheriv(algo, Buffer.from(key), Buffer.from(data.iv, 'base64'), { authTagLength: 16 })
-      .setAuthTag(Buffer.from(data.tag, 'base64'))
+    return createDecipheriv(algo, key, Buffer.from(payload.iv, 'base64'), { authTagLength: 16 })
+      .setAuthTag(Buffer.from(payload.tag, 'base64'))
   }
 
-  return createDecipheriv(algo, Buffer.from(key), Buffer.from(data.iv, 'base64'))
+  return createDecipheriv(algo, key, Buffer.from(payload.iv, 'base64'))
 }
 
 /**
  * Ensure the given tag is a valid tag given the selected cipher
  *
- * @param tag The tag used
- * @param algo The algorithm used
+ * @param tag The tag contained in the payload
+ * @param algo The algorithm to use to decrypt the value in the payload
  */
 const ensureTagIsValid = (tag: string | null, algo: algo): void => {
   if ((algo === 'aes-128-gcm' || algo === 'aes-256-gcm') && (tag === null || Buffer.from(tag, 'base64').length !== 16)) {
