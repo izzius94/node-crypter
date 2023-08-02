@@ -24,7 +24,7 @@ export const decrypt = (encrypted: string, key: Buffer, algo: algo = 'aes-256-cb
  * @returns The string encrypted
  */
 export const encrypt = (value: string, key: Buffer, algo: algo = 'aes-256-cbc'): string => {
-  if (algo === 'aes-256-gcm') {
+  if (algo === 'aes-256-gcm' || algo === 'aes-128-gcm') {
     const iv = randomBytes(12)
     const ivBased = iv.toString('base64')
     const cipher = createCipheriv(algo, Buffer.from(key), iv, { authTagLength: 16 })
@@ -71,7 +71,7 @@ const getJsonPayload = (encrypted: string, key: Buffer, algo: algo): IPayload =>
     throw new Error('Invalid payload.')
   }
 
-  if (algo !== 'aes-256-gcm' && !validMac(data, key)) {
+  if (algo !== 'aes-256-gcm' && algo !== 'aes-128-gcm' && !validMac(data, key)) {
     throw new Error('Invalid MAC.')
   }
 
@@ -128,7 +128,7 @@ const hash = (iv: string, value: string, key: Buffer): Hmac => {
 }
 
 const getDecipher = (algo: algo, key: Buffer, data: IPayload): Decipher => {
-  if (algo === 'aes-256-gcm') {
+  if (algo === 'aes-256-gcm' || algo === 'aes-128-gcm') {
     return createDecipheriv(algo, Buffer.from(key), Buffer.from(data.iv, 'base64'), { authTagLength: 16 })
       .setAuthTag(Buffer.from(data.tag, 'base64'))
   }

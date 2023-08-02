@@ -26,4 +26,4 @@ export const config = {
   'aes-128-gcm': 16
 }
 
-export type algo = 'aes-128-cbc' | 'aes-256-cbc' | 'aes-256-gcm'
+export type algo = 'aes-128-cbc' | 'aes-256-cbc' | 'aes-256-gcm' | 'aes-128-gcm'
