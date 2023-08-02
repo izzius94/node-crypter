@@ -3,6 +3,7 @@ import { decrypt, encrypt } from '../../src/lib/crypt'
 import { encryptedInvalidPayload } from '../config'
 import forEach from 'mocha-each'
 import { algo, read } from '../../src/lib/key'
+import assert from 'assert'
 
 describe('crypt', () => {
   forEach([
@@ -27,6 +28,25 @@ describe('crypt', () => {
       })
     })
     describe('# encrypt', () => {
+      it('Checking the payload of encrypted data', () => {
+        const encrypted = encrypt('test-string', read(key), algo)
+
+        assert(Buffer.from(encrypted, 'base64').toString('base64') === encrypted)
+
+        const decoded = JSON.parse(Buffer.from(encrypted, 'base64').toString())
+
+        assert(Buffer.from(decoded.iv, 'base64').toString('base64') === decoded.iv)
+        
+        if (algo === 'aes-128-cbc' || algo === 'aes-256-cbc') {
+          assert(decoded.mac !== '', `Mac could not be empty with algorithm ${algo}`)
+          assert(decoded.tag === '', `Tag should be empty with algorithm ${algo}`)
+          return
+        }
+
+        assert(decoded.mac === '', `Mac should be empty with algorithm ${algo}`)
+        assert(decoded.tag !== '', `Tag could not be empty with algorithm ${algo}`)
+        assert(Buffer.from(decoded.tag, 'base64').toString('base64') == decoded.tag)
+      })
       it('Should encrypt a string correctly', () => {
         const original = 'test-string'
         const encrypted = encrypt(original, read(key), algo)
