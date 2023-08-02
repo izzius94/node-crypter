@@ -22,7 +22,8 @@ export const read = (based: string): Buffer => {
 export const config = {
   'aes-128-cbc': 16,
   'aes-256-cbc': 32,
-  'aes-256-gcm': 32
+  'aes-256-gcm': 32,
+  'aes-128-gcm': 16
 }
 
 export type algo = 'aes-128-cbc' | 'aes-256-cbc' | 'aes-256-gcm'
