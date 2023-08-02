@@ -10,7 +10,10 @@ import { algo } from './key'
  */
 export const decrypt = (encrypted: string, key: Buffer, algo: algo = 'aes-256-cbc'): string => {
   const data = getJsonPayload(encrypted, key, algo)
-  const decipher = getDecipher(algo, key, data)
+
+  ensureTagIsValid(data.tag === undefined || data.tag === '' ? null : data.tag, algo)
+
+  const decipher = createDecipher(algo, key, data)
   const decrypted = decipher.update(data.value, 'base64')
 
   return Buffer.concat([decrypted, decipher.final()]).toString()
@@ -35,7 +38,7 @@ export const encrypt = (value: string, key: Buffer, algo: algo = 'aes-256-cbc'):
       JSON.stringify({
         iv: ivBased,
         value: value64,
-        mac: hash(ivBased, value64, key).digest('hex'),
+        mac: '',
         tag: cipher.getAuthTag().toString('base64')
       })
     ).toString('base64')
@@ -127,13 +130,37 @@ const hash = (iv: string, value: string, key: Buffer): Hmac => {
   return hmac
 }
 
-const getDecipher = (algo: algo, key: Buffer, data: IPayload): Decipher => {
+/**
+ * Create the decipher for decryption
+ *
+ * @param algo The algorithm used
+ * @param key The key used
+ * @param data The data in the payload
+ * @returns
+ */
+const createDecipher = (algo: algo, key: Buffer, data: IPayload): Decipher => {
   if (algo === 'aes-256-gcm' || algo === 'aes-128-gcm') {
     return createDecipheriv(algo, Buffer.from(key), Buffer.from(data.iv, 'base64'), { authTagLength: 16 })
       .setAuthTag(Buffer.from(data.tag, 'base64'))
   }
 
   return createDecipheriv(algo, Buffer.from(key), Buffer.from(data.iv, 'base64'))
+}
+
+/**
+ * Ensure the given tag is a valid tag given the selected cipher
+ *
+ * @param tag The tag used
+ * @param algo The algorithm used
+ */
+const ensureTagIsValid = (tag: string | null, algo: algo): void => {
+  if ((algo === 'aes-128-gcm' || algo === 'aes-256-gcm') && (tag === null || Buffer.from(tag, 'base64').length !== 16)) {
+    throw new Error('Could not decrypt the data.')
+  }
+
+  if ((algo === 'aes-128-cbc' || algo === 'aes-256-cbc') && typeof tag === 'string') {
+    throw new Error('Unable to use tag because the cipher algorithm does not support AEAD.' + tag)
+  }
 }
 
 /**
