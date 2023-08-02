@@ -29,19 +29,17 @@ export const decrypt = (encrypted: string, key: Buffer, algo: algo = 'aes-256-cb
 export const encrypt = (value: string, key: Buffer, algo: algo = 'aes-256-cbc'): string => {
   if (algo === 'aes-256-gcm' || algo === 'aes-128-gcm') {
     const iv = randomBytes(12)
-    const ivBased = iv.toString('base64')
     const cipher = createCipheriv(algo, key, iv, { authTagLength: 16 })
     const encrypted = cipher.update(value)
-    const value64 = Buffer.concat([encrypted, cipher.final()]).toString('base64')
 
-    return Buffer.from(
-      JSON.stringify({
-        iv: ivBased,
-        value: value64,
-        mac: '',
-        tag: cipher.getAuthTag().toString('base64')
-      })
-    ).toString('base64')
+    const payload: IPayload = {
+      iv: iv.toString('base64'),
+      value: Buffer.concat([encrypted, cipher.final()]).toString('base64'),
+      mac: '',
+      tag: cipher.getAuthTag().toString('base64')
+    }
+
+    return Buffer.from(JSON.stringify(payload)).toString('base64')
   }
 
   const iv = randomBytes(16)
@@ -49,15 +47,14 @@ export const encrypt = (value: string, key: Buffer, algo: algo = 'aes-256-cbc'):
   const cipher = createCipheriv(algo, key, iv)
   const encrypted = cipher.update(value)
   const value64 = Buffer.concat([encrypted, cipher.final()]).toString('base64')
+  const payload: IPayload = {
+    iv: iv.toString('base64'),
+    value: value64,
+    mac: hash(ivBased, value64, key).digest('hex'),
+    tag: ''
+  }
 
-  return Buffer.from(
-    JSON.stringify({
-      iv: ivBased,
-      value: value64,
-      mac: hash(ivBased, value64, key).digest('hex'),
-      tag: ''
-    })
-  ).toString('base64')
+  return Buffer.from(JSON.stringify(payload)).toString('base64')
 }
 
 /**

@@ -31,12 +31,12 @@ describe('crypt', () => {
       it('Checking the payload of encrypted data', () => {
         const encrypted = encrypt('test-string', read(key), algo)
 
-        assert(Buffer.from(encrypted, 'base64').toString('base64') === encrypted)
+        assert(Buffer.from(encrypted, 'base64').toString('base64') === encrypted, 'The payload must be encoded in base64')
 
         const decoded = JSON.parse(Buffer.from(encrypted, 'base64').toString())
 
-        assert(Buffer.from(decoded.iv, 'base64').toString('base64') === decoded.iv)
-        
+        assert(Buffer.from(decoded.iv, 'base64').toString('base64') === decoded.iv, 'The IV in the payload must be encoded in base64')
+
         if (algo === 'aes-128-cbc' || algo === 'aes-256-cbc') {
           assert(decoded.mac !== '', `Mac could not be empty with algorithm ${algo}`)
           assert(decoded.tag === '', `Tag should be empty with algorithm ${algo}`)
@@ -45,7 +45,7 @@ describe('crypt', () => {
 
         assert(decoded.mac === '', `Mac should be empty with algorithm ${algo}`)
         assert(decoded.tag !== '', `Tag could not be empty with algorithm ${algo}`)
-        assert(Buffer.from(decoded.tag, 'base64').toString('base64') == decoded.tag)
+        assert(Buffer.from(decoded.tag, 'base64').toString('base64') === decoded.tag)
       })
       it('Should encrypt a string correctly', () => {
         const original = 'test-string'
