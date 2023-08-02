@@ -1,7 +1,7 @@
 import Crypter from '../../src/lib/crypter'
 import { randomBytes } from 'crypto'
 import { expect } from 'chai'
-import { encryptedInvalidPayload, anotherKey } from '../config'
+import { encryptedInvalidPayload } from '../config'
 import { algo, read } from '../../src/lib/key'
 import forEach from 'mocha-each'
 

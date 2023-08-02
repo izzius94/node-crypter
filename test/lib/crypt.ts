@@ -20,7 +20,6 @@ describe('crypt', () => {
         }
 
         return expect(() => decrypt(encrypted, read('puQm02xCG7krF8zfr0vb6sgFzfYd1w3zrdjGXVpQTV8='), algo), algo).Throw('Unsupported state or unable to authenticate data')
-
       })
       it('Should decrypt a string', () => {
         expect('test-string').equal(decrypt(encrypted, read(key), algo))
