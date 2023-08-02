@@ -15,8 +15,10 @@ The `crypter` library makes easy to share encrypted data with a Laravel project.
 
 ### Supported algorithms
 
-- aes-256-cbc
+- aes-256-cbc (default)
 - aes-128-cbc
+- aes-256-gcm
+- aes-128-gcm
 
 ### Missing features
 Currently serialization and deserialization is not supported.
@@ -50,6 +52,8 @@ console.log(original === decrypted)
 
 ```
 
+> To use a different algorithm pass it as the third parameter to the methods `encrypt` and `decrypt`.
+
 ### Using the Crypter class to encrypt and decrypt a string
 
 Sometimes you will need to use the same key accross multiple classes. To help you do this you can use the class `Crypter` to share the same encryption key.
@@ -66,6 +70,8 @@ const decrypted = crypter.decrypt(crypted)
 console.log(original === decrypted)
 
 ```
+
+> To use a different algorithm pass it as second parameter to the constructor of the class `Crypter`
 
 ## License
 Copyright © 2023 Maurizio Urso Released under the MIT license
