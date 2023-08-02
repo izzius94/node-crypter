@@ -17,6 +17,8 @@ The `crypter` library makes easy to share encrypted data with a Laravel project.
 
 - aes-256-cbc
 - aes-128-cbc
+- aes-256-gcm
+- aes-128-gcm
 
 ### Missing features
 Currently serialization and deserialization is not supported.
