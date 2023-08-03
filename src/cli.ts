@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import { generateKey } from './index'
-import { algo } from './lib/key'
+import { algorithm } from './lib/key'
 
-const setAlgo = (algo: string | undefined): algo => {
+const setAlgo = (algo: string | undefined): algorithm => {
   if (algo === undefined) {
     return 'aes-256-cbc'
   }

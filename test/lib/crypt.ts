@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { decrypt, encrypt } from '../../src/lib/crypt'
 import { encryptedInvalidPayload } from '../config'
 import forEach from 'mocha-each'
-import { algo, read } from '../../src/lib/key'
+import { algorithm, read } from '../../src/lib/key'
 import assert from 'assert'
 
 describe('crypt', () => {
@@ -11,7 +11,7 @@ describe('crypt', () => {
     ['aes-128-cbc', 'OT8by/782/nqNUwrm4TbLg==', 'eyJpdiI6IkZRZVVZYmRsNDJDQkJpQ2hqZXEwSkE9PSIsInZhbHVlIjoiQWhZT0dBVi9vWC8xTndHMGJaZ3YxUT09IiwibWFjIjoiYzY5Y2Y4YmY2ODNjMThmOTU3NTBkNDkyNzNkNGZmYjhlZDNlMzk2MTAzZjEyMDEwNDBjODYxYjMyYTRlY2E5YyIsInRhZyI6IiJ9', 'bWfLYaiK0PHaJtyp3NnXfg=='],
     ['aes-256-gcm', 'sCzNv3C9UhFcplY+4neT+ALCQLq+IQwkbCYAnxIFAHQ=', 'eyJpdiI6IkV5NTRIOGdaek1ZS2hsRXMiLCJ2YWx1ZSI6ImZDMThqa1RyS1dkS0lGTT0iLCJtYWMiOiIiLCJ0YWciOiJ0U1FLUnNCaHQwTUJaUDVsK0RhYnJnPT0ifQ==', 'puQm02xCG7krF8zfr0vb6sgFzfYd1w3zrdjGXVpQTV8='],
     ['aes-128-gcm', 'bWfLYaiK0PHaJtyp3NnXfg==', 'eyJpdiI6IjM3TTd2VXNDMFBmNjB3eGsiLCJ2YWx1ZSI6IlB1ZGhTbFE1bzBVc005VT0iLCJtYWMiOiIiLCJ0YWciOiJCMlkxd2NmMDZSZmcrV3ZyWVlRQnlBPT0ifQ==', 'ZBq7Bx+oG0GVd8ixu4Y+mQ==']
-  ]).describe('Using %s', (algo: algo, key: string, encrypted: string, otherKey: string) => {
+  ]).describe('Using %s', (algo: algorithm, key: string, encrypted: string, otherKey: string) => {
     describe('# decrypt', () => {
       it('Should rise an exception if the payload is invalid', () => {
         expect(() => decrypt(encryptedInvalidPayload, read(key), algo), algo).Throw('Invalid payload.')

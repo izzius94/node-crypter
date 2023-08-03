@@ -1,14 +1,21 @@
 import { decrypt, encrypt } from './crypt'
-import { algo, config } from './key'
+import { algorithm, config } from './key'
 
 export default class {
   protected readonly key: Buffer
-  protected readonly algo: algo
+  protected readonly algorithm: algorithm
 
-  constructor (key: Buffer, algo: algo = 'aes-256-cbc') {
-    this.checkKey(key, algo)
+  /**
+   * Initialize the class
+   *
+   * @param key The key used to encrypt/decrypt the strings
+   * @param algorithm The algorithm used to encrypt/decrypt the strings
+   */
+  constructor (key: Buffer, algorithm: algorithm = 'aes-256-cbc') {
     this.key = key
-    this.algo = algo
+    this.algorithm = algorithm
+
+    this.checkKey()
   }
 
   /**
@@ -18,7 +25,7 @@ export default class {
    * @returns The string decrypted
    */
   public decrypt (encrypted: string): string {
-    return decrypt(encrypted, this.key, this.algo)
+    return decrypt(encrypted, this.key, this.algorithm)
   }
 
   /**
@@ -28,16 +35,14 @@ export default class {
    * @returns The string encrypted
    */
   public encrypt (value: string): string {
-    return encrypt(value, this.key, this.algo)
+    return encrypt(value, this.key, this.algorithm)
   }
 
   /**
    * Method to check if the provided key is valid
-   *
-   * @param key The key to check
    */
-  protected checkKey (key: Buffer, algo: algo): void {
-    if (key.toString('ascii').length !== config[algo]) {
+  protected checkKey (): void {
+    if (this.key.toString('ascii').length !== config[this.algorithm]) {
       throw Error('Invalid key lenght.')
     }
   }
