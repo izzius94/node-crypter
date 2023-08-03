@@ -27,6 +27,8 @@ Currently serialization and deserialization is not supported.
 
 ## Usage
 
+> Full documentation [here](https://github.com/izzius94/node-crypter/wiki)
+
 ### Creation of encryption key
 
 ```bash
