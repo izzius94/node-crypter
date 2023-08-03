@@ -3,16 +3,16 @@
 import { generateKey } from './index'
 import { algorithm } from './lib/key'
 
-const setAlgo = (algo: string | undefined): algorithm => {
-  if (algo === undefined) {
+const setAlgo = (algorithm: string | undefined): algorithm => {
+  if (algorithm === undefined) {
     return 'aes-256-cbc'
   }
 
-  if (algo === 'aes-256-cbc' || algo === 'aes-128-cbc') {
-    return algo
+  if (algorithm === 'aes-256-cbc' || algorithm === 'aes-128-cbc' || algorithm === 'aes-256-gcm' || algorithm === 'aes-128-gcm') {
+    return algorithm
   }
 
-  console.error(`Invalid algorithm: ${algo}`)
+  console.error(`Invalid algorithm: ${algorithm}`)
   process.exit(1)
 }
 
