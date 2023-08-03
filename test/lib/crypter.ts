@@ -14,7 +14,7 @@ describe('Crypter', () => {
   ]).describe('Using %s', (algo: algorithm, key: string, encrypted: string, otherKey: Buffer) => {
     describe('# Initialization', () => {
       it('Should rise an exception if an invalid encryption key is provided', () => {
-        expect(() => new Crypter(Buffer.from(randomBytes(1)))).Throw('Invalid key lenght.')
+        expect(() => new Crypter(Buffer.from(randomBytes(1)))).Throw('Invalid key length.')
       })
       it('Should work will all key types', () => {
         expect(new Crypter(read(key), algo) instanceof Crypter).equal(true)

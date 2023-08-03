@@ -21,7 +21,7 @@ export const read = (based: string): Buffer => {
 }
 
 /**
- * The key lenght for each algorithm
+ * The key length for each algorithm
  */
 export const config = {
   'aes-128-cbc': 16,

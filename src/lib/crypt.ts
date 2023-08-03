@@ -112,7 +112,7 @@ const validPayload = (payload: IPayload, algorithm: algorithm): boolean => {
  */
 const validMac = (payload: IPayload, key: Buffer): boolean => {
   return timingSafeEqual(
-    Buffer.from(hash(payload.iv, payload.value, key).digest('base64'), 'base64'),
+    hash(payload.iv, payload.value, key).digest(),
     Buffer.from(payload.mac, 'hex')
   )
 }
@@ -161,7 +161,7 @@ const ensureTagIsValid = (tag: string | null, algorithm: algorithm): void => {
   }
 
   if ((algorithm === 'aes-128-cbc' || algorithm === 'aes-256-cbc') && typeof tag === 'string') {
-    throw new Error('Unable to use tag because the cipher algorithm does not support AEAD.' + tag)
+    throw new Error('Unable to use tag because the cipher algorithm does not support AEAD.')
   }
 }
 

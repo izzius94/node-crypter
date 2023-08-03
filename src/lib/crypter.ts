@@ -43,7 +43,7 @@ export default class {
    */
   protected checkKey (): void {
     if (this.key.toString('ascii').length !== config[this.algorithm]) {
-      throw Error('Invalid key lenght.')
+      throw Error('Invalid key length.')
     }
   }
 }
